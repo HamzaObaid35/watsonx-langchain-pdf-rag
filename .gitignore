@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+env/
+my_env/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables / credentials
+.env
+.env.*
+*.key
+credentials.json
+
+# Chroma
+chroma/
+chroma_db/
+chroma.sqlite3
+
+# Temporary files
+*.tmp
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
