@@ -11,8 +11,8 @@ This project was developed as part of the **Generative AI Engineering with LLMs*
 - Split documents into overlapping chunks
 - Generate embeddings with IBM watsonx.ai
 - Store embeddings in ChromaDB
-- Retrieve relevant document chunks with similarity search
-- Generate answers with an IBM Granite LLM
+- Retrieve relevant document chunks using similarity search
+- Generate answers using an IBM Granite LLM
 - Interact through a Gradio web interface
 
 ## 🧠 Architecture
@@ -49,31 +49,33 @@ Gradio Interface
 
 ## 🤖 Models
 
-**LLM**
+### LLM
 
 ```text
 ibm/granite-4-h-small
 ```
 
-**Embedding model**
+### Embedding Model
 
 ```text
 ibm/granite-embedding-278m-multilingual
 ```
 
-> Note: The course lab originally referenced an older Slate embedding model. This repository uses the currently supported Granite embedding model for compatibility with the active watsonx.ai endpoint.
+> **Note:** The original course lab referenced an older Slate embedding model. This implementation uses the currently supported IBM Granite embedding model for compatibility with the active watsonx.ai endpoint.
 
 ## 📂 Project Structure
 
 ```text
-pdf-rag-qa-bot/
+watsonx-langchain-pdf-rag/
 │
 ├── qabot.py
 ├── requirements.txt
 ├── README.md
+├── LICENSE
 ├── .gitignore
+│
 └── screenshots/
-    └── README.md
+    └── qa_bot.png
 ```
 
 ## ⚙️ Installation
@@ -81,8 +83,8 @@ pdf-rag-qa-bot/
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/pdf-rag-qa-bot.git
-cd pdf-rag-qa-bot
+git clone https://github.com/HamzaObaid35/watsonx-langchain-pdf-rag.git
+cd watsonx-langchain-pdf-rag
 ```
 
 Create a virtual environment:
@@ -91,7 +93,7 @@ Create a virtual environment:
 python -m venv venv
 ```
 
-Activate it.
+Activate the virtual environment.
 
 ### Windows
 
@@ -99,13 +101,13 @@ Activate it.
 venv\Scripts\activate
 ```
 
-### Linux/macOS
+### Linux / macOS
 
 ```bash
 source venv/bin/activate
 ```
 
-Install the dependencies:
+Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -113,70 +115,73 @@ pip install -r requirements.txt
 
 ## ▶️ Run the Application
 
+Run the application with:
+
 ```bash
 python qabot.py
 ```
 
-The application is configured to run on port `7860`.
+The application is configured to run on port:
+
+```text
+7860
+```
 
 ## 📖 How It Works
 
 1. The user uploads a readable PDF document.
-2. `PyPDFLoader` extracts the document text.
-3. `RecursiveCharacterTextSplitter` divides the text into chunks of 1000 characters with an overlap of 200.
-4. IBM watsonx.ai generates vector embeddings for the chunks.
-5. ChromaDB stores the embeddings.
-6. A vector-store retriever finds the document chunks most relevant to the user's question.
-7. `RetrievalQA` sends the retrieved context and question to the Granite LLM.
-8. The answer is displayed in the Gradio interface.
+2. `PyPDFLoader` extracts the text from the PDF.
+3. `RecursiveCharacterTextSplitter` divides the document into chunks of 1000 characters with an overlap of 200 characters.
+4. IBM watsonx.ai generates vector embeddings for the document chunks.
+5. ChromaDB stores the generated embeddings.
+6. The vector-store retriever searches for chunks that are most relevant to the user's question.
+7. `RetrievalQA` combines the retrieved context with the user's query.
+8. The IBM Granite LLM generates an answer based on the retrieved document content.
+9. The final answer is displayed through the Gradio interface.
 
 ## 📸 Demo
 
-Place a screenshot of the working application in:
-
-```text
-screenshots/qa_bot.png
-```
-
-Then replace this note with:
-
-```markdown
-![PDF Q&A Bot](screenshots/qa_bot.png)
-```
+![PDF Q&A Bot](screenshots/QA_bot.png)
 
 ## 🎓 Project Context
 
-This repository is an educational implementation created while completing the final RAG project in the Generative AI Engineering with LLMs learning track.
+This repository is an educational implementation created while completing the final RAG project in the **Generative AI Engineering with LLMs** learning track.
 
 The project demonstrates the integration of:
 
-- document loading
-- text splitting
-- embeddings
-- vector databases
-- retrieval
+- Document loading
+- Text splitting
+- Embedding generation
+- Vector databases
+- Semantic retrieval
+- Retrieval-Augmented Generation (RAG)
 - LLM-based question answering
-- a Gradio user interface
+- Gradio user interface
 
 ## 🔧 Compatibility Update
 
-While completing the lab, the original embedding model referenced by the course was no longer supported by the active IBM watsonx.ai endpoint.
+While completing the project, the original embedding model referenced by the course was no longer supported by the active IBM watsonx.ai endpoint.
 
-The implementation therefore uses:
+The implementation was therefore updated to use:
 
 ```text
 ibm/granite-embedding-278m-multilingual
 ```
 
-This keeps the project functional while preserving the intended RAG architecture of the lab.
+instead of the older Slate embedding model.
+
+This modification keeps the application functional while preserving the intended RAG architecture of the original project.
 
 ## ⚠️ Notes
 
-- Best suited for readable PDF documents.
-- Very large PDFs may require batching, persistent vector storage, or additional optimization.
-- Do not commit API keys, credentials, `.env` files, or virtual environments to GitHub.
-- The `skills-network` project configuration is intended for the IBM Skills Network lab environment. Running the project outside that environment may require your own IBM Cloud credentials and project configuration.
+- The application is best suited for readable PDF documents.
+- Very large PDF files may require additional optimization, such as batch embedding or persistent vector storage.
+- Do not commit API keys, IBM Cloud credentials, `.env` files, or virtual environments to GitHub.
+- The `skills-network` project configuration is intended for the IBM Skills Network lab environment.
+- Running the project outside the Skills Network environment may require your own IBM Cloud credentials and watsonx.ai project configuration.
 
 ## 📄 License
 
-This project is intended for educational and portfolio use.
+This project is intended for educational and portfolio purposes.
+
+See the [LICENSE](LICENSE) file for license details.
